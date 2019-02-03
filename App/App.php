@@ -2,6 +2,7 @@
 
 namespace App;
 use App\Exception\HttpException;
+use App\Exception\NotFoundHttpException;
 
 /**
  * Class App
@@ -46,7 +47,10 @@ class App
 
             if ($route) {
                 $this->response->setContent($this->runAction($route));
+            } else {
+                throw new NotFoundHttpException();
             }
+
         } catch (HttpException $exception) {
             $this->response->setStatusCode($exception->getStatusCode());
             $this->response->setContent(['message' => $exception->getMessage()]);
