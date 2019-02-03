@@ -4,7 +4,7 @@ namespace Controller;
 
 use App\Exception\BadRequestHttpException;
 use App\MysqlPDOConnection;
-use Model\Repository\PostReposotory;
+use Model\Repository\PostRepository;
 
 /**
  * Class PostController
@@ -17,8 +17,9 @@ class PostController extends AbstractController
      */
     public function actionIndex()
     {
-        $rep = new PostReposotory(MysqlPDOConnection::getInstance());
+        $rep = new PostRepository(MysqlPDOConnection::getInstance());
         $posts = $rep->getAll();
+        return $posts;
     }
 
     /**
@@ -26,7 +27,9 @@ class PostController extends AbstractController
      */
     public function actionView($id)
     {
-
+        $rep = new PostRepository(MysqlPDOConnection::getInstance());
+        $post = $rep->getById($id);
+        return $post;
     }
 
     /**
