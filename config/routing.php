@@ -8,7 +8,7 @@ return [
     ],
     [
         'path' => 'post/{id}/view',
-        'params' => ['id' => '\d+'],
+        'params' => ['{id}' => '\d+'],
         'controller' => [\Controller\PostController::class, 'view'],
         'method' => 'GET'
     ],
@@ -20,13 +20,13 @@ return [
     ],
     [
         'path' => 'post/{id}/update',
-        'params' => ['id' => '\d+'],
+        'params' => ['{id}' => '\d+'],
         'controller' => [\Controller\PostController::class, 'update'],
         'method' => 'PUT'
     ],
     [
         'path' => 'post/{id}/delete',
-        'params' => ['id' => '\d+'],
+        'params' => ['{id}' => '\d+'],
         'controller' => [\Controller\PostController::class, 'delete'],
         'method' => 'DELETE'
     ],
@@ -39,7 +39,7 @@ return [
     ],
     [
         'path' => 'category/{id}/view',
-        'params' => ['id' => '\d+'],
+        'params' => ['{id}' => '\d+'],
         'controller' => [\Controller\CategoryController::class, 'view'],
         'method' => 'GET'
     ],
@@ -51,13 +51,13 @@ return [
     ],
     [
         'path' => 'category/{id}/update',
-        'params' => ['id' => '\d+'],
+        'params' => ['{id}' => '\d+'],
         'controller' => [\Controller\CategoryController::class, 'update'],
         'method' => 'PUT'
     ],
     [
         'path' => 'category/{id}/delete',
-        'params' => ['id' => '\d+'],
+        'params' => ['{id}' => '\d+'],
         'controller' => [\Controller\CategoryController::class, 'delete'],
         'method' => 'DELETE'
     ],
