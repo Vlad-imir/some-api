@@ -12,7 +12,7 @@ abstract class AbstractRepository
     /**
      * @var
      */
-    protected $entityClass;
+    protected $entityClass = null;
 
     /**
      * @var MysqlPDOConnection
@@ -34,15 +34,18 @@ abstract class AbstractRepository
      */
     protected function prepareEntity(array $record)
     {
+        if (!$record) {
+            return null;
+        }
+
         $class = $this->getEntityClass();
         $obj = new $class;
         $objVars = get_object_vars($obj);
-/*var_dump($objVars);
-var_dump($record);
-        exit;*/
+
         foreach ($objVars as $k => $value) {
             $obj->{$k} = $record[$k];
         }
+
         return $obj;
     }
 
@@ -62,10 +65,14 @@ var_dump($record);
     }
 
     /**
-     * @return mixed
+     * @return null
+     * @throws \Exception
      */
     protected function getEntityClass()
     {
+        if (!$this->entityClass) {
+            throw new \Exception('entityClass is required');
+        }
         return $this->entityClass;
     }
 }
