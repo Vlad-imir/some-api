@@ -46,17 +46,14 @@ class App
             $route = $this->router->getRoute();
 
             if ($route) {
-                $this->response->setContent($this->runAction($route));
+                $this->setResponseSuccess($this->runAction($route));
             } else {
                 throw new NotFoundHttpException();
             }
-
         } catch (HttpException $exception) {
-            $this->response->setStatusCode($exception->getStatusCode());
-            $this->response->setContent(['message' => $exception->getMessage()]);
+            $this->setResponseError($exception->getMessage(), $exception->getStatusCode());
         } catch (\Exception $exception) {
-            $this->response->setStatusCode(500);
-            $this->response->setContent(['message' => $exception->getMessage()]);
+            $this->setResponseError($exception->getMessage());
         }
 
         $this->response->send();
@@ -71,5 +68,23 @@ class App
         $controller = new $route[0]($this->request, $this->response);
         $action = $route[1];
         return call_user_func_array([$controller, $action], $route[2]);
+    }
+
+    /**
+     * @param $content
+     */
+    private function setResponseSuccess($content)
+    {
+        $this->response->setContent($content);
+    }
+
+    /**
+     * @param $content
+     * @param int $code
+     */
+    private function setResponseError($content, $code = 500)
+    {
+        $this->response->setContent(['message' => $content]);
+        $this->response->setStatusCode($code);
     }
 }
