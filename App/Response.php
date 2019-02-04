@@ -85,9 +85,13 @@ class Response
     public function send()
     {
         http_response_code($this->getStatusCode());
+
         foreach ($this->getHeaders() as $header) {
             header($header);
         }
-        echo json_encode($this->content);
+
+        if ($this->content) {
+            echo json_encode($this->content);
+        }
     }
 }
