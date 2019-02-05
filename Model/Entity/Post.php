@@ -9,4 +9,9 @@ class Post
     public $body;
     public $category_id;
     public $created_at;
+
+    public function __construct()
+    {
+        $this->created_at = (new \DateTime())->format('Y-m-d H:i:s');
+    }
 }

@@ -52,7 +52,8 @@ abstract class AbstractController
      */
     public function parseJsonBody()
     {
-        return json_decode($this->request->getBody(), true);
+        $content = json_decode($this->request->getBody(), true);
+        return $content;
     }
 
     /**

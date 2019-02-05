@@ -24,21 +24,49 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
     public function getById($id)
     {
         $result = $this->connection
-            ->prepare('SELECT * FROM ' . self::TABLE_NAME . ' WHERE id=1');
-        $result->execute();
+            ->prepare('SELECT * FROM ' . self::TABLE_NAME . ' WHERE id=?');
+        $result->execute([$id]);
         $result = $result->fetch(\PDO::FETCH_ASSOC);
 
-        return $this->prepareEntity($result);
+        return $result ? $this->prepareEntity($result) : null;
     }
 
     public function create(Post $post)
     {
-        // TODO: Implement create() method.
+        $sql = 'INSERT INTO ' . self::TABLE_NAME .
+               '(title, body, category_id, created_at)' .
+               ' VALUES (?,?,?,?)';
+
+        $result = $this->connection
+            ->prepare($sql)
+            ->execute([
+                $post->title,
+                $post->body,
+                $post->category_id,
+                $post->created_at,
+            ]);
+
+        $post->id = $this->connection->lastInsertId();
+
+        return $result;
     }
 
     public function update(Post $post)
     {
-        // TODO: Implement update() method.
+        $sql = 'UPDATE ' . self::TABLE_NAME .
+            ' SET title=?, body=?, category_id=?' .
+            ' WHERE id=?';
+
+        $result = $this->connection
+            ->prepare($sql)
+            ->execute([
+                $post->title,
+                $post->body,
+                $post->category_id,
+                $post->id,
+            ]);
+
+        return $result;
     }
 
     public function remove(Post $post)

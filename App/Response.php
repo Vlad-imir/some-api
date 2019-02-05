@@ -10,7 +10,9 @@ class Response
     /**
      * @var
      */
-    private $headers = ['Content-type: application/json'];
+    private $headers = [
+        'Content-type: application/json'
+    ];
 
     /**
      * @var
@@ -91,7 +93,7 @@ class Response
         }
 
         if ($this->content) {
-            echo json_encode($this->content);
+           echo json_encode($this->content);
         }
     }
 }
