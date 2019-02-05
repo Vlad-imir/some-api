@@ -53,8 +53,7 @@ class CategoryRepository extends AbstractRepository implements CategoryRepositor
     public function create(Category $cat)
     {
         $sql = 'INSERT INTO ' . self::TABLE_NAME .
-               '(name, created_at)' .
-               ' VALUES (?,?,?,?)';
+               '(name, created_at)  VALUES (?,?)';
 
         $result = $this->connection
             ->prepare($sql)

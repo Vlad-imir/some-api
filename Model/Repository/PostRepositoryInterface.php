@@ -17,6 +17,11 @@ interface PostRepositoryInterface
     /**
      * @return mixed
      */
+    public function getAllByCatId($id);
+
+    /**
+     * @return mixed
+     */
     public function getById($id);
 
     /**

@@ -3,6 +3,7 @@
 namespace Model\Service;
 
 use App\Exception\NotFoundHttpException;
+use App\Exception\UnprocessableEntityHttpException;
 use Model\Entity\Category;
 use Model\Entity\Post;
 use Model\Repository\CategoryRepositoryInterface;
@@ -19,12 +20,18 @@ class CategoryService
     private $repository;
 
     /**
+     * @var PostRepositoryInterface
+     */
+    private $postRepository;
+
+    /**
      * CategoryService constructor.
      * @param CategoryRepositoryInterface $repository
      */
-    public function __construct(CategoryRepositoryInterface $repository)
+    public function __construct(CategoryRepositoryInterface $repository, PostRepositoryInterface $postRepository)
     {
         $this->repository = $repository;
+        $this->postRepository = $postRepository;
     }
 
     /**
@@ -76,6 +83,11 @@ class CategoryService
     public function remove($id)
     {
         $cat = $this->failedIfNotFound($id);
+
+        $posts = $this->postRepository->getAllByCatId($id);
+        if ($posts) {
+            throw new UnprocessableEntityHttpException('Cant remove category, some posts are using it');
+        }
 
         return $this->repository->remove($cat);
     }

@@ -34,6 +34,20 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
     }
 
     /**
+     * @return array
+     */
+    public function getAllByCatId($id)
+    {
+        $result = $this->connection
+            ->prepare('SELECT * FROM ' . self::TABLE_NAME . ' WHERE category_id=? ORDER BY id DESC');
+        $result->execute([$id]);
+        $result = $result->fetchAll();
+
+        $result = $this->prepareEntities($result);
+        return $result;
+    }
+
+    /**
      * @param $id
      * @return AbstractRepository|null
      */
