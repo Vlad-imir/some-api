@@ -4,12 +4,24 @@ namespace Model\Repository;
 
 use Model\Entity\Post;
 
+/**
+ * Class PostRepository
+ */
 class PostRepository extends AbstractRepository implements PostRepositoryInterface
 {
+    /**
+     *
+     */
     const TABLE_NAME = 'post';
 
+    /**
+     * @var
+     */
     protected $entityClass = Post::class;
 
+    /**
+     * @return array
+     */
     public function getAll()
     {
         $result = $this->connection
@@ -21,6 +33,10 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         //print_r($result);exit;
     }
 
+    /**
+     * @param $id
+     * @return AbstractRepository|null
+     */
     public function getById($id)
     {
         $result = $this->connection
@@ -31,6 +47,10 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         return $result ? $this->prepareEntity($result) : null;
     }
 
+    /**
+     * @param Post $post
+     * @return bool
+     */
     public function create(Post $post)
     {
         $sql = 'INSERT INTO ' . self::TABLE_NAME .
@@ -51,6 +71,10 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         return $result;
     }
 
+    /**
+     * @param Post $post
+     * @return bool
+     */
     public function update(Post $post)
     {
         $sql = 'UPDATE ' . self::TABLE_NAME .
@@ -69,6 +93,9 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
         return $result;
     }
 
+    /**
+     * @param Post $post
+     */
     public function remove(Post $post)
     {
         $result = $this->connection
