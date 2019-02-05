@@ -1,0 +1,120 @@
+{
+	"variables": [],
+	"info": {
+		"name": "some-api",
+		"_postman_id": "db917897-efe1-6e4a-37da-b1d527f54595",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "cat list",
+			"request": {
+				"url": "http://localhost:8000/category",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "cat create",
+			"request": {
+				"url": "http://localhost:8000/category/create",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\": \"fff\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "cat update",
+			"request": {
+				"url": "http://localhost:8000/category/1/update",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\": \"ffff\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "cat delete",
+			"request": {
+				"url": "http://localhost:8000/category/1/delete",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\": \"ffff\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "post delete",
+			"request": {
+				"url": "http://localhost:8000/post/1/delete",
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"name\": \"ffff\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "post update",
+			"request": {
+				"url": "http://localhost:8000/post/1/update",
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"title\": \"ff\",\n\"body\": \"ff\",\n\"category_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "post create",
+			"request": {
+				"url": "http://localhost:8000/post/create",
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"title\": \"ff\",\n\"body\": \"ff\",\n\"category_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "post list",
+			"request": {
+				"url": "http://localhost:8000/post",
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\"title\": \"ff\",\n\"body\": \"ff\",\n\"category_id\": 1\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
