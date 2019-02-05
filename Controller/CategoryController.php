@@ -18,6 +18,9 @@ class CategoryController extends AbstractController
      */
     private $categoryService;
 
+    /**
+     * @var CategoryValidator
+     */
     private $categoryValidator;
 
     /**
