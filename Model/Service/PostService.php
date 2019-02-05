@@ -3,16 +3,21 @@
 namespace Model\Service;
 
 use App\Exception\NotFoundHttpException;
+use App\Exception\UnprocessableEntityHttpException;
 use Model\Entity\Post;
+use Model\Repository\CategoryRepositoryInterface;
 use Model\Repository\PostRepositoryInterface;
 
 class PostService
 {
     private $repository;
 
-    public function __construct(PostRepositoryInterface $repository)
+    private $categoryRepository;
+
+    public function __construct(PostRepositoryInterface $repository, CategoryRepositoryInterface $categoryRepository)
     {
         $this->repository = $repository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     public function getAll()
@@ -40,6 +45,10 @@ class PostService
         $post->title = $array['title'];
         $post->body = $array['body'];
 
+        if (!$this->categoryRepository->getById($post->category_id)) {
+            throw new UnprocessableEntityHttpException('Cant assign category, category doesnot exist');
+        }
+
         $this->repository->create($post);
 
         return $post;
@@ -55,6 +64,10 @@ class PostService
         $post->category_id = $array['category_id'];
         $post->title = $array['title'];
         $post->body = $array['body'];
+
+        if (!$this->categoryRepository->getById($post->category_id)) {
+            throw new UnprocessableEntityHttpException('Cant assign category, category doesnot exist');
+        }
 
         $this->repository->update($post);
 
