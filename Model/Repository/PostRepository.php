@@ -71,6 +71,8 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
 
     public function remove(Post $post)
     {
-        // TODO: Implement remove() method.
+        $result = $this->connection
+            ->prepare('DELETE FROM ' . self::TABLE_NAME . ' WHERE id=?');
+        $result->execute([$post->id]);
     }
 }

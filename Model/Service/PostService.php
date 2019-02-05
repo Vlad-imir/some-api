@@ -25,11 +25,7 @@ class PostService
      */
     public function getById($id)
     {
-        $post = $this->repository->getById($id);
-
-        if (!$post) {
-            throw new NotFoundHttpException('Post not found');
-        }
+        $post = $this->failedIfNotFound($id);
 
         return $post;
     }
@@ -54,11 +50,7 @@ class PostService
      */
     public function update($id, array $array)
     {
-        $post = $this->repository->getById($id);
-
-        if (!$post) {
-            throw new NotFoundHttpException('Post not found');
-        }
+        $post = $this->failedIfNotFound($id);
 
         $post->category_id = $array['category_id'];
         $post->title = $array['title'];
@@ -74,12 +66,19 @@ class PostService
      */
     public function remove($id)
     {
+        $post = $this->failedIfNotFound($id);
+
+        return $this->repository->remove($post);
+    }
+
+    private function failedIfNotFound($id)
+    {
         $post = $this->repository->getById($id);
 
         if (!$post) {
             throw new NotFoundHttpException('Post not found');
         }
 
-        return $this->repository->remove($post);
+        return $post;
     }
 }
