@@ -77,15 +77,10 @@ class App
     private function runAction($route)
     {
         $controllerName = $route[0];
-        //$controller = new $controllerName($this->request, $this->response);
-
-        $controller = $this->container->get($controllerName, [$this->request, $this->response]);
-        var_dump($controller);
-
-        //var_dump($class->newInstanceArgs([$this->request, $this->response]));
-        exit;
-
+        $controller = $this->container
+            ->get($controllerName, [$this->request, $this->response]);
         $action = $route[1];
+
         return call_user_func_array([$controller, $action], $route[2]);
     }
 

@@ -45,7 +45,7 @@ class Container
          */
         $cnt = count($params);
         if ($cnt) {
-            $constructorParams = array_slice($constructorParams, $cnt - 1);
+            $constructorParams = array_slice($constructorParams, $cnt);
         }
 
         /**

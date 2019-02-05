@@ -16,11 +16,9 @@ class PostController extends AbstractController
 {
     private $postService;
 
-    public function __construct(Request $request, Response $response)
+    public function __construct(Request $request, Response $response, PostService $postService)
     {
-        $postRepo = new PostRepository(MysqlPDOConnection::getInstance());
-        $this->postService = new PostService($postRepo);
-
+        $this->postService = $postService;
         return parent::__construct($request, $response);
     }
 
