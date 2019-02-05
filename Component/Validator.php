@@ -14,15 +14,14 @@ abstract class Validator
     }
 
     public function validate($array)
-    {var_dump($array);exit;
-        if (!$this->dataValidator($array)) {
+    {
+        if ($this->dataValidator($array) === false) {
             return false;
         }
-var_dump($array);exit;
+
         foreach ($this->rules as $rule) {
             foreach ($rule['fields'] as $field) {
-                var_dump($field, $rule, $array);exit;
-                $result = call_user_func(
+                $result = call_user_func_array(
                     [$this, $rule['validator']],
                     ['field' => $field, 'array' => $array]
                 );
@@ -49,7 +48,7 @@ var_dump($array);exit;
         $error = ' field is required';
 
         if (!array_key_exists($field, $array)) {
-            $this->error = $field . $error;
+            $this->error = ucfirst($field) . $error;
             return false;
         }
     }
@@ -58,8 +57,8 @@ var_dump($array);exit;
     {
         $error = ' field must not be empty';
 
-        if (!array_key_exists($field, $array) && !empty($field)) {
-            $this->error = $field . $error;
+        if (array_key_exists($field, $array) && empty($array[$field])) {
+            $this->error = ucfirst($field) . $error;
             return false;
         }
     }

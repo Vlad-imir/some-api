@@ -3,10 +3,9 @@
 namespace Controller;
 
 use App\Exception\BadRequestHttpException;
-use App\MysqlPDOConnection;
 use App\Request;
 use App\Response;
-use Model\Repository\PostRepository;
+use Component\PostValidator;
 use Model\Service\PostService;
 
 /**
@@ -14,11 +13,24 @@ use Model\Service\PostService;
  */
 class PostController extends AbstractController
 {
+    /**
+     * @var PostService
+     */
     private $postService;
 
-    public function __construct(Request $request, Response $response, PostService $postService)
-    {
+    /**
+     * @var PostValidator
+     */
+    private $postValidator;
+
+    public function __construct(
+        Request $request,
+        Response $response,
+        PostService $postService,
+        PostValidator $postValidator
+    ) {
         $this->postService = $postService;
+        $this->postValidator = $postValidator;
         return parent::__construct($request, $response);
     }
 
@@ -43,7 +55,12 @@ class PostController extends AbstractController
      */
     public function actionCreate()
     {
-        return $this->postService->create($this->parseJsonBody());
+        $body = $this->parseJsonBody();
+        if (!$this->postValidator->validate($body)) {
+            throw new BadRequestHttpException($this->postValidator->getError());
+        }
+
+        return $this->postService->create($body);
     }
 
     /**
@@ -51,6 +68,11 @@ class PostController extends AbstractController
      */
     public function actionUpdate($id)
     {
+        $body = $this->parseJsonBody();
+        if (!$this->postValidator->validate($body)) {
+            throw new BadRequestHttpException($this->postValidator->getError());
+        }
+
         return $this->postService->update($id, $this->parseJsonBody());
     }
 

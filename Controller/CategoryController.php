@@ -2,8 +2,10 @@
 
 namespace Controller;
 
+use App\Exception\BadRequestHttpException;
 use App\Request;
 use App\Response;
+use Component\CategoryValidator;
 use Model\Service\CategoryService;
 
 /**
@@ -16,15 +18,22 @@ class CategoryController extends AbstractController
      */
     private $categoryService;
 
+    private $categoryValidator;
+
     /**
      * CategoryController constructor.
      * @param Request $request
      * @param Response $response
      * @param CategoryService $categoryService
      */
-    public function __construct(Request $request, Response $response, CategoryService $categoryService)
-    {
+    public function __construct(
+        Request $request,
+        Response $response,
+        CategoryService $categoryService,
+        CategoryValidator $categoryValidator
+    ) {
         $this->categoryService = $categoryService;
+        $this->categoryValidator = $categoryValidator;
         return parent::__construct($request, $response);
     }
 
@@ -49,6 +58,11 @@ class CategoryController extends AbstractController
      */
     public function actionCreate()
     {
+        $body = $this->parseJsonBody();
+        if (!$this->categoryValidator->validate($body)) {
+            throw new BadRequestHttpException($this->categoryValidator->getError());
+        }
+
         return $this->categoryService->create($this->parseJsonBody());
     }
 
@@ -57,6 +71,11 @@ class CategoryController extends AbstractController
      */
     public function actionUpdate($id)
     {
+        $body = $this->parseJsonBody();
+        if (!$this->categoryValidator->validate($body)) {
+            throw new BadRequestHttpException($this->categoryValidator->getError());
+        }
+
         return $this->categoryService->update($id, $this->parseJsonBody());
     }
 
