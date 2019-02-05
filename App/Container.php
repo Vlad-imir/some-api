@@ -38,14 +38,14 @@ class Container
             $constructorParams = array_map(function ($el) {
                 return $el->getClass()->name;
             }, $constructor->getParameters());
-        }
 
-        /**
-         *  Filter params that already passed
-         */
-        $cnt = count($params);
-        if ($cnt) {
-            $constructorParams = array_slice($constructorParams, $cnt);
+            /**
+             *  Filter params that already passed
+             */
+            $cnt = count($params);
+            if ($cnt) {
+                $constructorParams = array_slice($constructorParams, $cnt);
+            }
         }
 
         /**
