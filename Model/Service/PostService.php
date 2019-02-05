@@ -41,9 +41,9 @@ class PostService
     public function create(array $array)
     {
         $post = new Post();
-        $post->category_id = $array['category_id'];
-        $post->title = $array['title'];
-        $post->body = $array['body'];
+        $post->category_id = (int) $array['category_id'];
+        $post->title = trim($array['title']);
+        $post->body = trim($array['body']);
 
         if (!$this->categoryRepository->getById($post->category_id)) {
             throw new UnprocessableEntityHttpException('Cant assign category, category doesnot exist');
@@ -61,9 +61,9 @@ class PostService
     {
         $post = $this->failedIfNotFound($id);
 
-        $post->category_id = $array['category_id'];
-        $post->title = $array['title'];
-        $post->body = $array['body'];
+        $post->category_id = (int) $array['category_id'];
+        $post->title = trim($array['title']);
+        $post->body = trim($array['body']);
 
         if (!$this->categoryRepository->getById($post->category_id)) {
             throw new UnprocessableEntityHttpException('Cant assign category, category doesnot exist');
