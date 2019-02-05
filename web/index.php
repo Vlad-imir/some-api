@@ -9,5 +9,6 @@ require __DIR__.'/../autoload.php';
 $request = new App\Request();
 $response = new App\Response();
 $router = new App\Router($request);
+$container = new \App\Container();
 
-(new App\App($request, $response, $router))->run();
+(new App\App($request, $response, $router, $container))->run();
