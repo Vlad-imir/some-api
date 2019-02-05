@@ -5,6 +5,7 @@ namespace Controller;
 use App\Exception\BadRequestHttpException;
 use App\Request;
 use App\Response;
+use Component\OutputFilter;
 use Component\PostValidator;
 use Model\Service\PostService;
 
@@ -23,14 +24,29 @@ class PostController extends AbstractController
      */
     private $postValidator;
 
+    /**
+     * @var OutputFilter
+     */
+    private $outputFilter;
+
+    /**
+     * PostController constructor.
+     * @param Request $request
+     * @param Response $response
+     * @param PostService $postService
+     * @param PostValidator $postValidator
+     * @param OutputFilter $outputFilter
+     */
     public function __construct(
         Request $request,
         Response $response,
         PostService $postService,
-        PostValidator $postValidator
+        PostValidator $postValidator,
+        OutputFilter $outputFilter
     ) {
         $this->postService = $postService;
         $this->postValidator = $postValidator;
+        $this->outputFilter = $outputFilter;
         return parent::__construct($request, $response);
     }
 
@@ -39,7 +55,9 @@ class PostController extends AbstractController
      */
     public function actionIndex()
     {
-        return $this->postService->getAll();
+        $collection = $this->postService->getAll();
+
+        return $this->outputFilter->filter($collection);
     }
 
     /**
@@ -47,7 +65,9 @@ class PostController extends AbstractController
      */
     public function actionView($id)
     {
-        return $this->postService->getById($id);
+        $post = $this->postService->getById($id);
+
+        return $this->outputFilter->filter($post);
     }
 
     /**
@@ -60,7 +80,9 @@ class PostController extends AbstractController
             throw new BadRequestHttpException($this->postValidator->getError());
         }
 
-        return $this->postService->create($body);
+        $post = $this->postService->create($body);
+
+        return $this->outputFilter->filter($post);
     }
 
     /**
@@ -73,7 +95,9 @@ class PostController extends AbstractController
             throw new BadRequestHttpException($this->postValidator->getError());
         }
 
-        return $this->postService->update($id, $this->parseJsonBody());
+        $post = $this->postService->update($id, $this->parseJsonBody());
+
+        return $this->outputFilter->filter($post);
     }
 
     /**
