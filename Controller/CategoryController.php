@@ -37,7 +37,7 @@ class CategoryController extends AbstractController
     ) {
         $this->categoryService = $categoryService;
         $this->categoryValidator = $categoryValidator;
-        return parent::__construct($request, $response);
+        parent::__construct($request, $response);
     }
 
     /**

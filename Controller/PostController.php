@@ -47,7 +47,7 @@ class PostController extends AbstractController
         $this->postService = $postService;
         $this->postValidator = $postValidator;
         $this->outputFilter = $outputFilter;
-        return parent::__construct($request, $response);
+        parent::__construct($request, $response);
     }
 
     /**

@@ -92,7 +92,7 @@ class Response
             header($header);
         }
 
-        if ($this->content) {
+        if ($this->content || is_array($this->content)) {
            echo json_encode($this->content);
         }
     }
