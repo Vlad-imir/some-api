@@ -31,6 +31,10 @@ class MysqlPDOConnection
     /**
      * @var
      */
+    private $port;
+    /**
+     * @var
+     */
     private $connection;
 
     /**
@@ -54,6 +58,7 @@ class MysqlPDOConnection
         $this->host = $config['host'];
         $this->username = $config['username'];
         $this->password = $config['password'];
+        $this->port = $config['port'];
     }
 
     /**
@@ -69,7 +74,7 @@ class MysqlPDOConnection
 
         if (!$this->connection) {
             $this->connection = new \PDO(
-                "mysql:dbname={$this->dbname};host={$this->host}",
+                $this->getDsn(),
                 $this->username,
                 $this->password,
                 $options
@@ -77,5 +82,19 @@ class MysqlPDOConnection
         }
 
         return $this->connection;
+    }
+
+    /**
+     * @return string
+     */
+    private function getDsn()
+    {
+        $dsn = "mysql:dbname={$this->dbname};host={$this->host}";
+
+        if ($this->port) {
+            $dsn .= ';port=' . $this->port;
+        }
+
+        return $dsn;
     }
 }
