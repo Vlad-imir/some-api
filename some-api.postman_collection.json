@@ -21,7 +21,7 @@
 		{
 			"name": "cat create",
 			"request": {
-				"url": "http://localhost:8000/category/create",
+				"url": "http://localhost:8000/category",
 				"method": "POST",
 				"header": [],
 				"body": {
@@ -35,12 +35,12 @@
 		{
 			"name": "cat update",
 			"request": {
-				"url": "http://localhost:8000/category/1/update",
-				"method": "PUT",
+				"url": "http://localhost:8000/category/3",
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n\"name\": \"ffff\"\n}"
+					"raw": "{\n\"name\": \"fffffffff\"\n}"
 				},
 				"description": ""
 			},
@@ -49,7 +49,7 @@
 		{
 			"name": "cat delete",
 			"request": {
-				"url": "http://localhost:8000/category/1/delete",
+				"url": "http://localhost:8000/category/4",
 				"method": "DELETE",
 				"header": [],
 				"body": {
@@ -63,7 +63,7 @@
 		{
 			"name": "post delete",
 			"request": {
-				"url": "http://localhost:8000/post/1/delete",
+				"url": "http://localhost:8000/post/1",
 				"method": "DELETE",
 				"header": [],
 				"body": {
@@ -77,8 +77,8 @@
 		{
 			"name": "post update",
 			"request": {
-				"url": "http://localhost:8000/post/1/update",
-				"method": "PUT",
+				"url": "http://localhost:8000/post/2",
+				"method": "PATCH",
 				"header": [],
 				"body": {
 					"mode": "raw",
@@ -91,7 +91,7 @@
 		{
 			"name": "post create",
 			"request": {
-				"url": "http://localhost:8000/post/create",
+				"url": "http://localhost:8000/post",
 				"method": "POST",
 				"header": [],
 				"body": {
