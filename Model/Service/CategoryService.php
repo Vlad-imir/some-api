@@ -58,7 +58,7 @@ class CategoryService
     public function create(array $array)
     {
         $cat = new Category();
-        $cat->name = trim($array['name']);
+        $cat->name = htmlspecialchars(trim($array['name']));
         $this->repository->create($cat);
 
         return $cat;
@@ -70,7 +70,7 @@ class CategoryService
     public function update($id, array $array)
     {
         $cat = $this->failedIfNotFound($id);
-        $cat->name = trim($array['name']);
+        $cat->name = htmlspecialchars(trim($array['name']));
 
         $this->repository->update($cat);
 

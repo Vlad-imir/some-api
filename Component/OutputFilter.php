@@ -16,7 +16,7 @@ class OutputFilter
         if (is_array($data)) {
             $res = [];
             foreach ($data as $one) {
-                $res = $this->handleObject($one);
+                $res[] = $this->handleObject($one);
             }
             return $res;
         } elseif (is_object($data)) {
@@ -38,7 +38,7 @@ class OutputFilter
                 return htmlspecialchars($item->body);
             },
             'category' => function ($item) {
-                return '/category/' . $item->id . '/view';
+                return ['href' => 'http://localhost:8000/category/' . $item->id];
             },
             'created_at' => function ($item) {
                 return (new \DateTime($item->created_at))->format('Y-m-d');

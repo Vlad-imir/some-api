@@ -25,7 +25,7 @@ class PostRepository extends AbstractRepository implements PostRepositoryInterfa
     public function getAll()
     {
         $result = $this->connection
-            ->query('SELECT * FROM ' . self::TABLE_NAME . ' where 1 != 1 ORDER BY id DESC')
+            ->query('SELECT * FROM ' . self::TABLE_NAME . ' ORDER BY id DESC')
             ->fetchAll();
 
         $result = $this->prepareEntities($result);
