@@ -1,8 +1,8 @@
 <?php
 return [
     'dbname' => 'sblog',
-    'host' => 'localhost',
+    'host' => 'db',
     'username' => 'root',
     'password' => '111111',
-    'port' => ''
+    'port' => '3306'
 ];
