@@ -17,7 +17,7 @@ class Container
      */
     public function __construct()
     {
-        $this->map = require '../config/map.php';
+        $this->map = require __DIR__ . '/../config/map.php';
     }
 
     /**

@@ -53,7 +53,7 @@ class MysqlPDOConnection
      */
     public function __construct()
     {
-        $config = require '../config/db.php';
+        $config = require __DIR__ . '/../config/db.php';
         $this->dbname = $config['dbname'];
         $this->host = $config['host'];
         $this->username = $config['username'];

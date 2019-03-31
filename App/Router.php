@@ -14,7 +14,7 @@ class Router
     public function __construct(Request $request)
     {
         $this->request = $request;
-        $this->config = require '../config/routing.php';
+        $this->config = require __DIR__ . '/../config/routing.php';
     }
 
     /**
